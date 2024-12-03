@@ -14,17 +14,31 @@
                 class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pokemonBlue focus:outline-none" required>
         </div>
 
+
         <div>
             <label for="type" class="block text-gray-700 font-semibold mb-1">Tipo</label>
             <input type="text" id="type" name="type" placeholder="Ex: Elétrico"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pokemonBlue focus:outline-none" required>
         </div>
 
+
         <div>
             <label for="power" class="block text-gray-700 font-semibold mb-1">Poder</label>
             <input type="number" id="power" name="power" placeholder="Ex: 90"
                 class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pokemonBlue focus:outline-none" required>
         </div>
+
+
+        <div>
+            <label for="coach_id" class="block text-gray-700 font-semibold mb-1">Coach</label>
+            <select id="coach_id" name="coach_id" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pokemonBlue focus:outline-none" required>
+                <option value="" disabled selected>Selecione um Coach</option>
+                @foreach ($coaches as $coach)
+                <option value="{{ $coach->id }}">{{ $coach->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
 
         <div>
             <label for="image" class="block text-gray-700 font-semibold mb-1">Imagem do Pokemon</label>

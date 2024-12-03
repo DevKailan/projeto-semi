@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coach;
 use App\Models\Pokemon;
 use Illuminate\Http\Request;
 
@@ -15,22 +16,29 @@ class PokemonController extends Controller
 
     public function create()
     {
-        return view('pokemon.create');
+        $coaches = Coach::all();
+        return view('pokemon.create', compact('coaches'));
     }
 
     public function store(Request $request)
     {
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
-
         $pokemon = new Pokemon();
         $pokemon->name = $request->name;
         $pokemon->type = $request->type;
         $pokemon->power = $request->power;
-        $pokemon->image = 'images/' . $imageName;
+
+        $pokemon->coach_id = $request->coach_id;
+
+     
+        if ($request->image) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $pokemon->image = 'images/' . $imageName;
+        }
+
         $pokemon->save();
 
-        return redirect('pokemon')->with('success', 'Pokémon criado com sucesso!');
+        return redirect('pokemon')->with('success', 'Pokemon criado com sucesso!');
     }
 
     public function edit($id)
@@ -43,7 +51,7 @@ class PokemonController extends Controller
     {
         $pokemon = Pokemon::findOrFail($id);
 
-    
+
         $pokemon->name = $request->name;
         $pokemon->type = $request->type;
         $pokemon->power = $request->power;
@@ -56,13 +64,13 @@ class PokemonController extends Controller
 
         $pokemon->save();
 
-        return redirect('pokemon')->with('success', 'Pokémon atualizado com sucesso!');
+        return redirect('pokemon')->with('success', 'Pokemon atualizado com sucesso!');
     }
 
     public function destroy($id)
     {
         $pokemon = Pokemon::findOrFail($id);
         $pokemon->delete();
-        return redirect('pokemon')->with('success', 'Pokémon excluído com sucesso!');
+        return redirect('pokemon')->with('success', 'Pokemon excluído com sucesso!');
     }
 }

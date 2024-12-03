@@ -22,17 +22,29 @@
                     class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pokemonBlue focus:outline-none" required>
             </div>
 
+
             <div>
                 <label for="power" class="block text-gray-700 font-semibold mb-1">Poder</label>
                 <input type="number" id="power" name="power" value="{{ $pokemon->power }}"
                     class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pokemonBlue focus:outline-none" required>
             </div>
 
+
+            <div>
+                <label for="coach_id" class="block text-gray-700 font-semibold mb-1">Coach</label>
+                <select id="coach_id" name="coach_id" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pokemonBlue focus:outline-none" required>
+                    <option value="" disabled>Selecione um Coach</option>
+                    @foreach ($coaches as $coach)
+                    <option value="{{ $coach->id }}" @if ($pokemon->coach_id == $coach->id) selected @endif>{{ $coach->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div>
                 <label for="image" class="block text-gray-700 font-semibold mb-1">Imagem do Pokemon</label>
                 <input type="file" id="image" name="image" class="w-full px-4 py-2 border rounded-lg focus:outline-none">
                 @if ($pokemon->image)
-                <img src="{{ asset($pokemon->image) }}" alt="Imagem do Pokemon" class="mt-4 w-32 h-32 object-cover">
+                <img src="{{ asset($pokemon->image) }}" alt="{{ $pokemon->name }}" class="mt-4 w-32 h-32 object-cover">
                 @endif
             </div>
 
