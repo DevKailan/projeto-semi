@@ -20,13 +20,12 @@ class CoachController extends Controller
 
     public function store(Request $request)
     {
-        // Corrigindo o armazenamento da imagem
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
 
         $coach = new Coach();
         $coach->name = $request->name;
-        $coach->image = 'images/' . $imageName; // Salva o caminho correto da imagem
+        $coach->image = 'images/' . $imageName; 
         $coach->save();
 
         return redirect('coaches')->with('success', 'Coach criado com sucesso!');
@@ -34,8 +33,8 @@ class CoachController extends Controller
 
     public function edit($id)
     {
-        $coach = Coach::findOrFail($id); // Corrigida a variável utilizada
-        return view('coaches.edit', compact('coach')); // Passa o coach correto para a view
+        $coach = Coach::findOrFail($id);
+        return view('coaches.edit', compact('coach')); 
     }
 
     public function update(Request $request, $id)

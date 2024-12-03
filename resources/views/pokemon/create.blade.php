@@ -3,9 +3,14 @@
 @section('title', 'Capturar Novo Pokemon')
 
 @section('content')
+
+
+@can('create', App\Models\Pokemon::class)
 <div class="container mx-auto max-w-lg mt-10 p-6 bg-white rounded-lg shadow-lg">
     <h1 class="text-3xl font-bold text-pokemonBlue text-center mb-6">Capturar Novo Pokemon</h1>
     <form action="{{ route('pokemon.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+
+@endcan
         @csrf
 
         <div>
