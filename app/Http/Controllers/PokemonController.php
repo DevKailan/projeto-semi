@@ -20,8 +20,17 @@ class PokemonController extends Controller
 
     public function store(Request $request)
     {
-        Pokemon::create($request->all());
-        return redirect('pokemon')->with('success', 'pokemon created successfully.');
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $imageName);
+
+        $pokemon = new Pokemon();
+        $pokemon->name = $request->name;
+        $pokemon->type = $request->type;
+        $pokemon->power = $request->power;
+        $pokemon->image = 'images/' . $imageName;
+        $pokemon->save();
+
+        return redirect('pokemon')->with('success', 'Pokémon criado com sucesso!');
     }
 
     public function edit($id)
@@ -33,14 +42,27 @@ class PokemonController extends Controller
     public function update(Request $request, $id)
     {
         $pokemon = Pokemon::findOrFail($id);
-        $pokemon->update($request->all());
-        return redirect('pokemon')->with('success', 'pokemon updated successfully.');
+
+    
+        $pokemon->name = $request->name;
+        $pokemon->type = $request->type;
+        $pokemon->power = $request->power;
+
+        if (!is_null($request->image)) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $pokemon->image = 'images/' . $imageName;
+        }
+
+        $pokemon->save();
+
+        return redirect('pokemon')->with('success', 'Pokémon atualizado com sucesso!');
     }
 
     public function destroy($id)
     {
         $pokemon = Pokemon::findOrFail($id);
         $pokemon->delete();
-        return redirect('pokemon')->with('success', 'pokemon deleted successfully.');
+        return redirect('pokemon')->with('success', 'Pokémon excluído com sucesso!');
     }
 }

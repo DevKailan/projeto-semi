@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Pokémon App')</title>
+    <title>@yield('title', 'Pokemon App')</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -15,10 +15,10 @@
         <div class="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
             <a href="/" class="flex items-center space-x-2">
                 <img src="https://img.icons8.com/color/48/pokeball.png" class="h-8" alt="PokéBall Logo">
-                <span class="text-xl font-bold">Pokémon App</span>
+                <span class="text-xl font-bold">Pokemon App</span>
             </a>
             <ul class="flex space-x-6">
-                <li><a href="/pokemon" class="hover:text-yellow-300">Pokémons</a></li>
+                <li><a href="/pokemon" class="hover:text-yellow-300">Pokemons</a></li>
 
             </ul>
         </div>
